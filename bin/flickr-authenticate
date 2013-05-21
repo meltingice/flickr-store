@@ -1,0 +1,32 @@
+#!/usr/bin/env ruby
+
+require './lib/flickr-store'
+
+CREDS_FILE = './.flickr-credentials'
+if File.exists?(CREDS_FILE)
+  creds = Marshal.load(File.read(CREDS_FILE))
+  print "Credentials: "
+  pp creds
+  puts "Delete #{CREDS_FILE} if you would like to reauthenticate"
+  exit
+end
+
+print "API Key: "
+api_key = gets.strip
+
+print "API Secret: "
+secret = gets.strip
+
+f = Flickr::Store.authenticate(api_key, secret)
+creds = {
+  api_key: api_key,
+  shared_secret: secret,
+  access_token: f.access_token, 
+  access_secret: f.access_secret
+}
+
+creds_file = File.new(CREDS_FILE, 'w')
+creds_file.write Marshal.dump(creds)
+
+puts "Credentials saved!"
+pp creds
