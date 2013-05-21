@@ -17,5 +17,5 @@ f = Flickr::Store.new(creds[:api_key], creds[:shared_secret], creds[:access_toke
 if ARGV[0].downcase == "put"
   f.upload ARGV[1]
 elsif ARGV[0].downcase == "get"
-  f.fetch ARGV[1]
+  f.fetch ARGV[1], ARGV[2]
 end

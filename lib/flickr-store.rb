@@ -77,7 +77,7 @@ module Flickr
       update_dict!
     end
 
-    def fetch(name)
+    def fetch(name, outfile)
       path = File.realpath(name)
       id = @dict[path]
       sizes = flickr.photos.getSizes(photo_id: id)
@@ -88,7 +88,7 @@ module Flickr
       file.write open(url).read
       file.flush
 
-      PNG.decode(file, 'OUT.txt')
+      PNG.decode(file, outfile)
       
       file.close!
       file.unlink
