@@ -1,6 +1,8 @@
 #!/usr/bin/env ruby
+require 'pp'
 
-require './lib/flickr-store'
+BIN_ROOT = File.dirname(File.absolute_path(__FILE__))
+require BIN_ROOT + '/../lib/flickr-store'
 
 CREDS_FILE = './.flickr-credentials'
 if File.exists?(CREDS_FILE)
