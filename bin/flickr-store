@@ -3,7 +3,7 @@
 BIN_ROOT = File.dirname(File.absolute_path(__FILE__))
 require BIN_ROOT + '/../lib/flickr-store'
 
-CREDS_FILE = './.flickr-credentials'
+CREDS_FILE = Dir.home + '/.flickr-credentials'
 if !File.exists?(CREDS_FILE)
   puts "Please login using flickr-authenticate first!"
   exit

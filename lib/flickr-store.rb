@@ -13,6 +13,8 @@ FlickRaw.secure = true
 
 module Flickr
   class Store
+    DICT_FILE = Dir.home + '/.flickr-store'
+
     def self.authenticate(key, secret)
       FlickRaw.api_key = key
       FlickRaw.shared_secret = secret
@@ -43,15 +45,15 @@ module Flickr
       flickr.access_token = access_token
       flickr.access_secret = access_secret
 
-      if File.exists?('./.flickr-store')
+      if File.exists?(DICT_FILE)
         begin
-          @dict = Marshal.load File.read('./.flickr-store')
+          @dict = Marshal.load File.read(DICT_FILE)
         rescue
-          FileUtils.touch('./.flickr-store')
+          FileUtils.touch(DICT_FILE)
           @dict = {}
         end
       else
-        FileUtils.touch('./.flickr-store')
+        FileUtils.touch(DICT_FILE)
         @dict = {}
       end
     end
@@ -96,7 +98,7 @@ module Flickr
     private
 
     def update_dict!
-      File.write "./.flickr-store", Marshal.dump(@dict)
+      File.write DICT_FILE, Marshal.dump(@dict)
     end
   end
 end
