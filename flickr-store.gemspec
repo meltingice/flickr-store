@@ -8,9 +8,9 @@ Gem::Specification.new do |gem|
   gem.version       = Flickr::Store::VERSION
   gem.authors       = ["Ryan LeFevre"]
   gem.email         = ["meltingice8917@gmail.com"]
-  gem.description   = %q{TODO: Write a gem description}
-  gem.summary       = %q{TODO: Write a gem summary}
-  gem.homepage      = ""
+  gem.description   = %q{Store arbitrary data with your 1TB Flickr cloud drive.}
+  gem.summary       = %q{Store arbitrary data with your 1TB Flickr cloud drive by encoding any file as a PNG. This is mostly a proof of concept right now. Don't do anything beyond tinkering with it yet.}
+  gem.homepage      = "http://github.com/meltingice/flickr-store"
 
   gem.files         = `git ls-files`.split($/)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }

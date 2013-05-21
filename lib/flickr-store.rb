@@ -8,7 +8,6 @@ require 'open-uri'
 require 'fileutils'
 require "png-encode"
 require "flickraw"
-require "pp"
 
 FlickRaw.secure = true
 
