@@ -1,24 +1,27 @@
-# Flickr::Store
+# flickr-store
 
-TODO: Write a gem description
+Store arbitrary data with your 1TB Flickr cloud drive by encoding any file as a PNG. This is mostly a proof of concept right now. Don't do anything beyond tinkering with it yet.
 
 ## Installation
 
-Add this line to your application's Gemfile:
-
-    gem 'flickr-store'
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install flickr-store
+```
+$ gem install flickr-store
+```
 
 ## Usage
 
-TODO: Write usage instructions here
+First, you will need to register a Flickr application [through their dev site](http://www.flickr.com/services/apps/create/). Once that is done, you can login by running:
+
+```
+flickr-authenticate
+```
+
+Once you complete authentication, you can now use flickr-store:
+
+```
+flickr-store put [file]
+flickr-store get [file] [output path]
+```
 
 ## Contributing
 
