@@ -79,7 +79,15 @@ module Flickr
     end
 
     def fetch(name, outfile)
-      id = @dict[name]
+      if name =~ /^[0-9]+$/
+        id = name
+
+        if @dict.invert[id].nil?
+          puts "Warning: unknown file with Flickr ID #{id}. Attempting anyways..."
+        end
+      else
+        id = @dict[name]
+      end
 
       if id.nil?
         puts "Unknown file stored at path #{name}"
