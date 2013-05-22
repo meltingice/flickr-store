@@ -7,16 +7,16 @@ CREDS_FILE = Dir.home + '/.flickr-credentials'
 if !File.exists?(CREDS_FILE)
   puts "Please login using flickr-authenticate first!"
   exit
-elsif ARGV.size < 2
-  puts "Please specify an action and file to store"
-  exit
 end
 
 creds = Marshal.load(File.read(CREDS_FILE))
 f = Flickr::Store.new(creds[:api_key], creds[:shared_secret], creds[:access_token], creds[:access_secret])
 
-if ARGV[0].downcase == "put"
-  f.upload ARGV[1]
-elsif ARGV[0].downcase == "get"
-  f.fetch ARGV[1], ARGV[2]
+case ARGV[0].downcase
+when "put" then f.upload ARGV[1]
+when "get" then f.fetch ARGV[1], ARGV[2]
+when "list"
+  f.files.each do |path, id|
+    puts "ID: #{id}, Path: #{path}"
+  end
 end

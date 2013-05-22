@@ -85,7 +85,7 @@ module Flickr
         puts "Unknown file stored at path #{name}"
         return
       end
-      
+
       sizes = flickr.photos.getSizes(photo_id: id)
       image = sizes.select { |s| s['label'].downcase == 'original' }.first
       url = image['source']
@@ -98,6 +98,10 @@ module Flickr
       
       file.close!
       file.unlink
+    end
+
+    def files
+      @dict
     end
 
     private
