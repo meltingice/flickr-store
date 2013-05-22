@@ -79,8 +79,13 @@ module Flickr
     end
 
     def fetch(name, outfile)
-      path = File.realpath(name)
-      id = @dict[path]
+      id = @dict[name]
+
+      if id.nil?
+        puts "Unknown file stored at path #{name}"
+        return
+      end
+      
       sizes = flickr.photos.getSizes(photo_id: id)
       image = sizes.select { |s| s['label'].downcase == 'original' }.first
       url = image['source']
