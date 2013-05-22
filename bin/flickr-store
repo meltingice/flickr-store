@@ -7,6 +7,9 @@ CREDS_FILE = Dir.home + '/.flickr-credentials'
 if !File.exists?(CREDS_FILE)
   puts "Please login using flickr-authenticate first!"
   exit
+elsif ARGV.length <= 1
+  puts "Please specify an action"
+  exit
 end
 
 creds = Marshal.load(File.read(CREDS_FILE))
