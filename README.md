@@ -20,7 +20,8 @@ Once you complete authentication, you can now use flickr-store:
 
 ```
 flickr-store put [file]
-flickr-store get [file] [output path]
+flickr-store get [file or photo ID] [output path]
+flickr-store list
 ```
 
 ## Contributing
