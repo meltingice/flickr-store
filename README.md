@@ -2,6 +2,8 @@
 
 Store arbitrary data with your 1TB Flickr cloud drive by encoding any file as a PNG. This is mostly a proof of concept right now. Don't do anything beyond tinkering with it yet.
 
+Under the hood, flickr-store is powered by [png-encode](https://github.com/meltingice/png-encode). Be sure to check it out and contribute there as well.
+
 ## Installation
 
 ```
