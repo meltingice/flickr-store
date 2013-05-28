@@ -18,6 +18,7 @@ f = Flickr::Store.new(creds[:api_key], creds[:shared_secret], creds[:access_toke
 case ARGV[0].downcase
 when "put" then f.upload ARGV[1]
 when "get" then f.fetch ARGV[1], ARGV[2]
+when "delete" then f.delete ARGV[1]
 when "list"
   f.files.each do |path, id|
     puts "ID: #{id}, Path: #{path}"

@@ -22,7 +22,7 @@ module Flickr
       token = flickr.get_request_token
       auth_url = flickr.get_authorize_url(token['oauth_token'], perms: 'delete')
 
-      `open #{auth_url}`
+      system "open \"#{auth_url}\""
       puts "Visit this URL in your browser: #{auth_url}"
       puts "Paste the number given after logging in:"
       verify = gets.strip
@@ -78,7 +78,38 @@ module Flickr
       update_dict!
     end
 
+    def delete name
+      id = resolve_id name
+      flickr.photos.delete :photo_id => id
+      @dict.delete name
+      update_dict!
+    end
+
     def fetch(name, outfile)
+      id = resolve_id name
+
+      sizes = flickr.photos.getSizes(photo_id: id)
+      image = sizes.select { |s| s['label'].downcase == 'original' }.first
+      url = image['source']
+
+      file = Tempfile.new(SecureRandom.hex)
+      file.write open(url).read
+      file.flush
+
+      PNG.decode(file, outfile)
+
+      file.close!
+      file.unlink
+    end
+
+    def files
+      @dict
+    end
+
+    private
+
+    def resolve_id name
+      id = nil
       if name =~ /^[0-9]+$/
         id = name
 
@@ -93,26 +124,8 @@ module Flickr
         puts "Unknown file stored at path #{name}"
         return
       end
-
-      sizes = flickr.photos.getSizes(photo_id: id)
-      image = sizes.select { |s| s['label'].downcase == 'original' }.first
-      url = image['source']
-
-      file = Tempfile.new(SecureRandom.hex)
-      file.write open(url).read
-      file.flush
-
-      PNG.decode(file, outfile)
-      
-      file.close!
-      file.unlink
+      id
     end
-
-    def files
-      @dict
-    end
-
-    private
 
     def update_dict!
       File.write DICT_FILE, Marshal.dump(@dict)
